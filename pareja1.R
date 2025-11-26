@@ -60,3 +60,22 @@ plot(2:10, sil_width, type = "b", pch = 19,
      ylab = "Silhouette promedio",
      main = "Selección de K con silhouette")
 
+#----------------------------------------------------------------------------------
+
+#K medoids con 2 clusters
+resultado_k2 <- pam(df_std, k=2)
+
+# Data frame con etiquetas cluster
+df_plot_k2 <- as.data.frame(df_std)
+df_plot_k2$cluster <- factor(resultado_k2$clustering)
+
+# los medoides obtenidos
+medoids_k2 <- as.data.frame(resultado_k2$medoids)
+
+
+# Gráfico con ggplot
+ggplot(df_plot_k2, aes(x = mass, y = period, color = cluster)) +
+  geom_point(alpha = 0.6) +
+  geom_point(data = medoids_k2, aes(x = mass, y = period),
+             color = "red", size = 5, shape = 8) +
+  labs(title = "Clusters PAM con 2 medoides")
