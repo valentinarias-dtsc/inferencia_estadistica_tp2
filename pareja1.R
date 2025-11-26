@@ -7,22 +7,24 @@ library(plotly)
 data("planets")
 planets
 
+# Estandarización
 df_std <- scale(planets)
 
 #Aplicación de PAM
 resultado <- pam(df_std, k=4)
 
+# cluster al que pertenece cada obs.
 resultado$clustering
+# los 4 medoides
 resultado$medoids
 
-# Data frame con etiquetas
+# Data frame con etiquetas cluster
 df_plot <- as.data.frame(df_std)
 df_plot$cluster <- factor(resultado$clustering)
 
-# Medoides
+# los medoides obtenidos
 medoids <- as.data.frame(resultado$medoids)
 
-mass		
 
 # Gráfico con ggplot
 ggplot(df_plot, aes(x = mass, y = period, color = cluster)) +
@@ -57,3 +59,4 @@ plot(2:10, sil_width, type = "b", pch = 19,
      xlab = "Número de clusters K",
      ylab = "Silhouette promedio",
      main = "Selección de K con silhouette")
+
